@@ -2,6 +2,12 @@
     <link rel="stylesheet" href="/css/cart.css">
 </head>
 
+{{#each messeage}}
+<div class="alert alert-primary" role="alert">
+    {{this}}
+</div>
+{{/each}}
+
 <div class="cart">
     <div class="cart-header">
         <a href="/" class="buymore">Mua thêm sản phẩm khác</a>
@@ -10,14 +16,29 @@
     <div class="cart-body">
         {{#each products}}
         <div class="product">
-            <div class="product-img">
-                <img src="{{this.image}}" alt="photo">
+            <div class="group">
+                <div class="product-img">
+                    <img src="{{this.image}}" alt="photo">
+                    <button id="delete" data-toggle="modal" data-target="#delete-laptop-modal" data-id="{{this.id}}"><i
+                            class="far fa-times-circle"></i> Xóa </button>
+                </div>
+                <div class="product-name">
+                    <a href="{{this.slug}}"><b>{{this.name}}</b></a>
+                </div>
+                <div class="product-price">
+                    {{this.price}}đ
+                </div>
             </div>
-            <div class="product-name">
-                <a href="{{this.slug}}"><b>{{this.name}}</b></a>
-            </div>
-            <div class="product-price">
-                {{this.price}}đ
+
+            <div class="choosenumber">
+                <div class="minus">
+                    <i style="background-color: rgb(204, 204, 204);"></i>
+                </div>
+                <div class="number">{{this.value}}</div>
+                <div class="plus">
+                    <i style="background-color: rgb(40, 138, 214);"></i>
+                    <i style="background-color: rgb(40, 138, 214);"></i>
+                </div>
             </div>
         </div>
         {{/each}}
@@ -52,24 +73,18 @@
             <p>CHỌN ĐỊA CHỈ NHẬN HÀNG:</p>
             <div class="address-body">
                 <div class="tinh-huyen">
-                    <select class="form-control form-tinh">
+                    <select class="form-control form-tinh" id="tinh">
                         <option>Chọn Tỉnh / Thành phố</option>
-                        <option>Hà Nội</option>
-                        <option>Nam Định</option>
                     </select>
 
-                    <select class="form-control form-huyen">
+                    <select class="form-control form-huyen" id="huyen">
                         <option>Chọn Quận / Huyện</option>
-                        <option>Hà Nội</option>
-                        <option>Nam Định</option>
                     </select>
                 </div>
 
                 <div class="xa-phuong">
-                    <select class="form-control form-xa">
+                    <select class="form-control form-xa" id="xa">
                         <option>Chọn Xã / Phường</option>
-                        <option>Hà Nội</option>
-                        <option>Nam Định</option>
                     </select>
 
                     <input class="form-control custom-address" type="text" placeholder="Số nhà, tên đường">
@@ -88,3 +103,84 @@
         <button class="final-total">ĐẶT HÀNG</button>
     </div>
 </div>
+
+{{!-- Confirm Delete Laptop --}}
+<div class="modal" id="delete-laptop-modal" tabindex="-1"></div>
+<form method="POST" name="delete-laptop-form"></form>
+
+{{!-- button delete --}}
+<script>
+    var deleteForm = document.forms['delete-laptop-form'];
+    $('#delete-laptop-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var laptopId = button.data('id');
+        deleteForm.action = "/cart/remove/" + laptopId;
+        deleteForm.submit();
+    });
+</script>
+
+{{!-- Tỉnh --}}
+<script>
+    var tinh = $('#tinh');
+    $.ajax({
+        type: 'get',
+        url: '/search/address/tinh/get',
+        dataType: 'json',
+        success: function (data) {
+            var str = "<option>Chọn Tỉnh / Thành Phố</option>";
+            for (let q = 0; q < data.add.length; q++) {
+                let dt = data.add[q];
+                str = str + "<option>" + dt['ten_tinh'] + "</option>";
+            }
+            tinh.html(str);
+        }
+    });
+</script>
+
+{{!-- Tỉnh -> Huyện --}}
+<script>
+    var tinh = $('#tinh');
+    var huyen = $('#huyen');
+    var xa = $('#xa');
+    tinh.change(function () {
+        xa.html("<option>Chọn Xã / Phường</option>");
+        huyen.html("<option>Chọn Quận / Huyện</option>");
+        var str = "<option>Chọn Quận / Huyện</option>";
+        $.ajax({
+            type: 'get',
+            url: '/search/address/huyen/' + tinh.val(),
+            dataType: 'json',
+            success: function (data) {
+                for (let q = 0; q < data.add.length; q++) {
+                    let dt = data.add[q];
+                    str = str + "<option>" + dt['ten_huyen'] + "</option>";
+                }
+                huyen.html(str);
+                xa.html("<option>Chọn Xã / Phường</option>");
+            }
+        });
+    });
+</script>
+
+
+{{!-- Tỉnh -> Huyện --}}
+<script>
+    var huyen = $('#huyen');
+    var xa = $('#xa');
+    huyen.change(function () {
+        xa.html("<option>Chọn Xã / Phường</option>");
+        var str = "<option>Chọn Xã / Phường</option>";
+        $.ajax({
+            type: 'get',
+            url: '/search/address/xa/' + huyen.val(),
+            dataType: 'json',
+            success: function (data) {
+                for (let q = 0; q < data.add.length; q++) {
+                    let dt = data.add[q];
+                    str = str + "<option>" + dt['ten_xa'] + "</option>";
+                }
+                xa.html(str);
+            }
+        });
+    });
+</script>

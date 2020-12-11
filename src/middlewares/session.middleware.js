@@ -10,7 +10,10 @@ module.exports = function(req, res,next) {
 
         session.create(req.con, {sessionId}, function(err) {
             if (err) console.log(err);
+            else {
+                next();
+            }
         })
     }
-    next();
+    else next();
 }

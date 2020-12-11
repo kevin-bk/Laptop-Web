@@ -1,6 +1,7 @@
 const homeRouter = require('./home');
 const adminRouter = require('./admin');
 const cartRouter = require('./cart');
+const searchRouter = require('./search');
 const requireAdmin = require('../middlewares/admin');
 const adminController = require('../controllers/adminController');
 
@@ -9,6 +10,7 @@ function route(app){
     app.post('/admin/login', adminController.postLogin);
     app.use('/admin',requireAdmin.requireAuth, adminRouter);
     app.use('/cart', cartRouter);
+    app.use('/search', searchRouter);
     app.use('/', homeRouter);
 }
 
