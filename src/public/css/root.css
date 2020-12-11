@@ -1,0 +1,20 @@
+::-webkit-scrollbar {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #30add1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #30add1;
+    border: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #fff;
+}

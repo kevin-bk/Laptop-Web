@@ -1,0 +1,89 @@
+
+<div class="mt-4 container">
+    <div class="">
+        <h3>Quản lý Laptop</h3>
+        <div class="mt-4">
+            <a href="/admin/laptop/create" class="btn btn-primary"><i class="fas fa-plus"></i> Thêm laptop mới</a>
+            <a href="/admin/laptop/trash" class="ml-4"><i class="fas fa-trash"></i> Thùng rác</a>
+        </div>
+    </div>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên Laptop</th>
+                <th scope="col">Hãng</th>
+                <th scope="col">Giá</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each laptops}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.laptop_name}}</td>
+                <td>{{this.brand}}</td>
+                <td>{{this.price}}</td>
+                <td>
+                    <a href="/admin/laptop/{{this.slug}}/edit" class="btn btn-link">Sửa</a>
+                    <a href="#" class="btn btn-link" data-toggle="modal" data-target="#delete-laptop-modal"
+                        data-id="{{this.slug}}">Xóa</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">
+                    Chưa có sản phẩm nào.
+                    <a href="/admin/laptop/create">Thêm</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{!-- Confirm Delete Laptop --}}
+<div class="modal" id="delete-laptop-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa laptop này?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa laptop này?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                <button id="btn-delete-laptop" type="button" class="btn btn-primary">Xóa bỏ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Delete hidden Form --}}
+<form method="POST" name="delete-laptop-form"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var laptopId;
+        var deleteForm = document.forms['delete-laptop-form'];
+        var btnDelete = document.getElementById('btn-delete-laptop');
+        $('#delete-laptop-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            //console.log(id);
+            laptopId = id;
+        });
+
+        btnDelete.onclick = function () {
+            deleteForm.action = '/admin/laptop/' + laptopId + '?_method=DELETE';
+            deleteForm.submit();
+        }
+    });
+
+
+</script>
