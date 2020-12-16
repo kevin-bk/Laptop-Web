@@ -1,0 +1,67 @@
+:root{
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    --primary-color: red;
+
+    --navbar-height: 45px;
+    --header-height: 40px;
+    --menu-height: 50px;
+    /* --header-height: 120px; */
+    --header-with-logo-height: calc(var(--header-height) - var(--navbar-height) - var(--menu-height));
+}
+
+*{
+    box-sizing: inherit;
+}
+
+html{
+    /* font-size: 62.5%;
+    line-height: 1.6rem; */
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: none; 
+}
+
+/* Responsive */
+.grid{
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.grid__full-width{
+    width: 100%;
+}
+
+.grid__row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.grid__column-2{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 16.6667%;
+}
+
+.grid__column-10{
+    width: 83.3334%;
+}
+
+.grid__column-2-4{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 20%;
+}
+
+/* ---------------- */

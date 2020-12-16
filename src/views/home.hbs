@@ -14,13 +14,23 @@
         {{#each laptops}}
         <div class="grid__column-2-4 mt-2">
             <div class="card" style="width: 100%; height: 320px;">
-                <a href="/laptops/{{this.slug}}">
-                    <img src="{{this.img}}" class="card-img-top" alt="...">
+                <a href="/laptops/{{this.slug}}" class="product-image">
+                    <img src="{{this.img}}" class="card-img-top product-img" alt="...">
                 </a>
                 <div class="card-body">
                     <a href="/laptops/{{this.slug}}">
                         <h5 class="card-title product-name">{{this.laptop_name}}</h5>
                     </a>
+
+                    <div class="props">
+                        <span>RAM {{this.ram}}</span>
+                        <span>Ổ CỨNG {{this.hard_drive}}</span>
+                    </div>
+
+                    <div class="price">
+                        <strong>{{this.price}}₫</strong>
+                    </div>
+
                     <a href="/laptops/{{this.slug}}" class="btn btn-primary btn-product" style = "font-size: 1.2em;">Xem chi tiết</a>
                     <a href="/cart/add/{{this.id}}" class="btn btn-primary btn-cart" style = "font-size: 1.2em;">Add to cart</a>
                 </div>

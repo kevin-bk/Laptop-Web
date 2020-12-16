@@ -35,6 +35,12 @@ class adminController {
         if (before) res.redirect("/" + before);
         else res.redirect('/admin/laptop');
     }
+
+    // [GET] /admin
+    index(req,res,next){
+        res.render("admin/index", {layout: 'admin'});
+    }
+
 }
 
 module.exports = new adminController;

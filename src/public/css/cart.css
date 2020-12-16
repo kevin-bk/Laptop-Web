@@ -68,6 +68,9 @@ a:hover{
 
 .product-img{
     width: 20%;
+    float: left;
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 .product-img button{
@@ -89,20 +92,24 @@ img{
     width: 60%;
     margin-top: 8px;
     margin-left: 30px;
+    margin-right: 0px;
 }
 
 .product-name{
     width: 50%;
     margin-top: 8px;
     font-size: 13px;
+    margin-left: 0px;
 }
 
 .product-price{
     font-size: 15px;
     color: #f30c28;
     position: relative;
-    margin-left:75px;
-    margin-top: 8px;
+    top: 8px;
+    left: 68px;
+    /* margin-left:75px;
+    margin-top: 8px; */
 }
 
 .customer{
