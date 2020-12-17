@@ -11,9 +11,9 @@ class adminController {
         const user = req.body.tk;
         const password = req.body.password;
         
-        if (user == ""){
+        if (user != "admin"){
             res.render('admin/login', {
-                err : ["User does not exist."],
+                err : ["Tên đăng nhập không đúng!"],
                 user : user,
                 layout: 'admin'
             });
@@ -21,13 +21,14 @@ class adminController {
         }
         if (password == ""){
             res.render('admin/login', {
-                err : ["Wrong password."],
+                err : ["Sai mật khẩu!"],
                 user : user,
                 layout: 'admin'
             });
             return;
         }
         res.cookie('admin', 12345, {
+            path: '/admin',
             signed: true
         });
         const before = req.query.r;
@@ -39,6 +40,12 @@ class adminController {
     // [GET] /admin
     index(req,res,next){
         res.render("admin/index", {layout: 'admin'});
+    }
+
+    // [GET] /admin/logout
+    logout(req,res,next){
+        res.clearCookie('admin', { path: '/admin' });
+        res.redirect('/admin');
     }
 
 }

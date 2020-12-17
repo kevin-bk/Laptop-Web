@@ -15,6 +15,7 @@ class cartController {
             }
             let data = JSON.parse(sessions[0].value);
             let products = [];
+            let total_price = 0;
             for (const dt in data) {
                 let product = {};
                 product.id = dt;
@@ -22,12 +23,15 @@ class cartController {
                 laptop.getById(req.con, product.id, function(err, laptops){
                     product.name = laptops[0].laptop_name;
                     product.image = laptops[0].img;
-                    product.price = laptops[0].price;
-                    // console.log(product);
+                    total_price = Number(total_price) + Number(laptops[0].price);
+                    product.price = Intl.NumberFormat().format(laptops[0].price);
                     products.push(product);
                 });
             }
-            res.render('cart', {products});
+            setTimeout(() => {
+                total_price = Intl.NumberFormat().format(total_price);
+                res.render('cart', {products : products, total_price : total_price});
+            }, 100);
         })
     }
 

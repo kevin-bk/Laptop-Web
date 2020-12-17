@@ -5,6 +5,10 @@ class laptopController {
     // [GET] /admin/Laptop/
     index(req, res,next) {
         laptop.get(req.con, function(err, laptops){
+            laptops = laptops.map(laptop => {
+                laptop.price = Intl.NumberFormat().format(laptop.price);
+                return laptop;
+            });
             res.render('admin/laptop/list',{ laptops, layout: 'admin' })
         })
     }
@@ -16,7 +20,8 @@ class laptopController {
 
     // [POST] /admin/Laptop/store
     store(req, res, next) {
-        laptop.create(req.con, req.body, function(err) {
+        if (!req.body.laptop_name) res.redirect("/admin/laptop/create");
+        else laptop.create(req.con, req.body, function(err) {
             res.redirect("/admin/laptop")
           })
     }

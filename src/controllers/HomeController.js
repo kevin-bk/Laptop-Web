@@ -7,6 +7,10 @@ class HomeController {
     index(req, res,next) {
         laptop.get(req.con, function(err, laptops){
             // console.log(laptops);
+            laptops = laptops.map(laptop => {
+                laptop.price = Intl.NumberFormat().format(laptop.price);
+                return laptop;
+            });
             res.render('home',{ laptops })
         })
     }

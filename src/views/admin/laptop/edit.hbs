@@ -1,6 +1,6 @@
 <div class="mt-4 container">
     <h3>Cập nhật thông tin Laptop</h3>
-    <form class="mt-4" method="POST" action="/admin/laptop/{{laptop.slug}}?_method=PUT">
+    <form class="mt-4" method="POST" action="/admin/laptop/{{laptop.slug}}?_method=PUT" name="create-form">
         <div class="form-group">
             <label for="laptop_name">Tên Laptop</label>
             <input type="text" class="form-control" value="{{laptop.laptop_name}}" id="laptop_name" name="laptop_name">
@@ -100,3 +100,19 @@
         <button type="submit" class="btn btn-primary">Cập nhật</button>
     </form>
 </div>
+
+<script>
+    var create_form = document.forms['create-form'];
+    var btn = $('.btn');
+    btn.click(function(event){
+        event.preventDefault();
+        var laptop_name = $('#laptop_name').val();
+        var price = $('#price').val();
+        if (!laptop_name){
+            window.alert("Chưa đặt tên laptop");
+            return;
+        }
+        if (!price) $('#price').val(0);
+        create_form.submit();
+    })
+</script>

@@ -7,6 +7,7 @@ const adminController = require('../controllers/adminController');
 
 router.get('/login',adminController.login);
 router.post('/login',adminController.postLogin);
+router.get('/logout',adminController.logout);
 
 
 router.get('/laptop',laptopController.index);
