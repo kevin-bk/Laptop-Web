@@ -1,6 +1,7 @@
 .header{
     height: var(--header-height);
     background-color: #ffffff;
+    margin-bottom: 30px;
 }
 
 
@@ -9,10 +10,10 @@
     justify-content: space-between;
     background-color: #30add1;
     height: var(--navbar-height);
-    position: fixed;
+    /* position: fixed;
     top: 0;
     left: 0;
-    right: 0;
+    right: 0; */
     z-index: 1000;
 }
 

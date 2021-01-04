@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="/css/root.css">
+    {{!-- <link rel="stylesheet" href="/css/root.css"> --}}
     <link rel="stylesheet" href="/css/home-base.css ">
     <link rel="stylesheet" href="/css/home-main.css ">
     <link rel="stylesheet" href="/css/product.css">
@@ -17,12 +17,41 @@
 <body>
     {{>header}}
     <div class="grid">
+        {{>category}}
         {{{body}}}
     </div>
-
-    {{!-- <script type="text/javascript" src="/js/fix-menu.js"></script> --}}
+    {{>footer}}
     {{!-- <script src="/js/jquery-3.5.1.slim.min.js"></script> --}}
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function renderData(laptops, des, number = 999) {
+            var htmls = laptops.map((laptop,index) => {
+            if (index + 1 > number) return '';
+            return '<div class="grid__column-2-4 mt-2">'+
+                    `            <div class="card" style="width: 100%;" onclick="window.location=\'/laptop/${laptop.slug}\'">`+
+                    '                <a class="product-image">'+
+                    `                    <img src="${laptop.img}" class="card-img-top product-img" alt="...">`+
+                    '                </a>'+
+                    '                <div class="card-body">'+
+                    '                    <a>'+
+                    `                        <h5 class="card-title product-name">${laptop.laptop_name}</h5>`+
+                    '                    </a>'+
+                    ''+
+                    '                    <div class="props">'+
+                    `                        <span>RAM ${laptop.ram}</span>`+
+                    `                        <span>Ổ CỨNG ${laptop.hard_drive}</span>`+
+                    '                    </div>'+
+                    ''+
+                    '                    <div class="price">'+
+                    `                        <strong>${Intl.NumberFormat().format(laptop.price)}₫</strong>`+
+                    '                    </div>'+
+                    '                </div>'+
+                    '            </div>'+
+                    '        </div>';
+        })
+        $(des).html(htmls.join(''));
+        }
+    </script>
 </body>
 
 </html>

@@ -18,6 +18,14 @@ module.exports = {
         con.query(`SELECT * FROM laptops where slug = '${slug}'`, callback);
     },
 
+    getByBrand: function (con, brand, callback) {
+        con.query(`SELECT * FROM laptops where brand = '${brand}'`, callback);
+    },
+
+    getByPrice: function (con, price, callback) {
+        con.query(`SELECT * FROM laptops where price >= ${price.a} and price <= ${price.b}`, callback);
+    },
+
     create: function (con, data, callback) {
         const url = urlSlug(data.laptop_name);
         const id = shortId.generate();

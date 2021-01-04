@@ -1,0 +1,40 @@
+
+.footer{
+    height: 250px;
+    border-top: 2px solid #fe6433;
+    padding-top: 3px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    background-image: linear-gradient(90deg,rgba(0,67,112,0.6),rgba(37,118,253,0.6)) url(/res/img/bg-end.jpg);
+    background-size: 100% 100%;
+    /* background-color: rgba(0, 0, 0, 0.15); */
+    margin-top: 200px;
+    /* z-index: 1000; */
+}
+
+.footer__about{
+    margin-top: 10px;
+    display: flex;
+    height: 100%;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    flex-wrap: wrap;
+}
+
+.company, .support,.location{
+    flex: 1;
+    height: 250px;
+}
+
+.company h3,
+.support h3{
+    font-size: 1.8rem;
+    margin-left: 40px;
+}
+
+.company__list,
+.support__list{
+    font-size: 1.6rem;
+    margin-left: 17px;
+    padding-bottom: 20px;
+}

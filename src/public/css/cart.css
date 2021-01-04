@@ -97,9 +97,10 @@ img{
 
 .product-name{
     width: 50%;
-    margin-top: 8px;
+    padding-top: 8px;
     font-size: 13px;
     margin-left: 0px;
+    margin-top: 0;
 }
 
 .product-price{

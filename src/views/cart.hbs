@@ -31,11 +31,11 @@
             </div>
 
             <div class="choosenumber">
-                <div class="minus">
+                <div class="minus" onclick="window.location='/cart/sub/{{this.id}}'">
                     <i style="background-color: rgb(204, 204, 204);"></i>
                 </div>
                 <div class="number">{{this.value}}</div>
-                <div class="plus">
+                <div class="plus" onclick="window.location='/cart/add/{{this.id}}'">
                     <i style="background-color: rgb(40, 138, 214);"></i>
                     <i style="background-color: rgb(40, 138, 214);"></i>
                 </div>
@@ -62,10 +62,10 @@
         </div>
         <div class="name-phone">
             <div class="custom-name">
-                <input class="form-control name-phone-form" type="text" placeholder="Họ Và Tên">
+                <input class="form-control name-phone-form customer-name" type="text" placeholder="Họ Và Tên">
             </div>
             <div class="custom-phone">
-                <input class="form-control name-phone-form" type="text" placeholder="Số điện thoại">
+                <input class="form-control name-phone-form customer-phone" type="text" placeholder="Số điện thoại">
             </div>
         </div>
 
@@ -100,13 +100,16 @@
             <div class="strong"><b>Tổng tiền:</b> </div>
             <div class="strong total-price"><b>{{total_price}}đ</b> </div>
         </div>
-        <button class="final-total">ĐẶT HÀNG</button>
+        <button type="submit" id="btn" class="final-total">ĐẶT HÀNG</button>
     </div>
 </div>
 
 {{!-- Confirm Delete Laptop --}}
 <div class="modal" id="delete-laptop-modal" tabindex="-1"></div>
 <form method="POST" name="delete-laptop-form"></form>
+
+{{!-- Confirm Order --}}
+<form method="POST" name="confirm-order-form"></form>
 
 {{!-- button delete --}}
 <script>
@@ -183,4 +186,40 @@
             }
         });
     });
+</script>
+
+<input type="text" class="order-hidden" style="display: none;" value="{{order}}">
+
+<script>
+    var btn = $('#btn');
+    var customer_name = $('.customer-name');
+    var customer_phone = $('.customer-phone');
+    var tinh = $('#tinh');
+    var huyen = $('#huyen');
+    var xa = $('#xa');
+    var more_info = $('.more-info');
+    var custom_address = $('.custom-address');
+    var order_hidden = $('.order-hidden');
+    var order_form = document.forms['confirm-order-form'];
+
+    function check(){
+        if (xa.val() == 'Chọn Xã / Phường') return false;
+        if (huyen.val() == 'Chọn Quận / Huyện') return false;
+        if (tinh.val() == 'Chọn Tỉnh / Thành Phố') return false;
+        if (customer_name.val() == '') return false;
+        if (customer_phone.val() == '') return false;
+        if (custom_address.val() == '') return false;
+        return true;
+    }
+
+    btn.click(function (event) {
+        event.preventDefault();
+        if (!check()){
+            alert("Chưa điền đủ thông tin!");
+            return;
+        }
+        var address = custom_address.val() + ", " + xa.val() + ", " + huyen.val() + ", " + tinh.val();
+        order_form.action = "/cart/order?&name=" + customer_name.val() + "&phone=" + customer_phone.val() + "&address=" + address + "&more_info=" + more_info.val() + "&products=" + order_hidden.val();
+        order_form.submit();
+    })
 </script>

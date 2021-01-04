@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const laptopController = require('../controllers/laptopController');
+const laptopController = require('../controllers/laptopCRUDController');
 const orderController = require('../controllers/orderController');
 const adminController = require('../controllers/adminController');
 

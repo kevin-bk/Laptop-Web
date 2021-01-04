@@ -1,0 +1,26 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/css/home-base.css ">
+    <link rel="stylesheet" href="/css/home-main.css ">
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<div id="data" data-brand="{{brand}}"></div>
+<div class="mt-4">
+    <div class="brand mb-4">{{brand}}</div>
+    <div class="row"></div>
+</div>
+
+<script>
+    fetch('/api/getLaptopByBrand/' + $('#data').data('brand'))
+    .then(data => {
+        return data.json();
+    })
+    .then(laptops => {
+        renderData(laptops, '.row')
+    })
+</script>

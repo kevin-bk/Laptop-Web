@@ -51,9 +51,10 @@ html{
 }
 
 .grid__column-2-4{
-    padding-left: 5px;
-    padding-right: 5px;
+    /* padding-left: 5px;
+    padding-right: 5px; */
     width: 20%;
+    margin-top: 0 !important;
 }
 
 /* ---------------- */
