@@ -3,7 +3,10 @@ class adminController {
 
     // [GET] /admin/login
     login(req, res, next){
-        res.render('admin/login', {layout: 'admin'});
+        if (req.signedCookies.admin) {
+            res.redirect('/admin/laptop');
+        }
+        res.render('admin/login', {layout: 'blank_page'});
     }
 
     // [POST] /admin/login
@@ -15,7 +18,7 @@ class adminController {
             res.render('admin/login', {
                 err : ["Tên đăng nhập không đúng!"],
                 user : user,
-                layout: 'admin'
+                layout: 'blank_page'
             });
             return;
         }
@@ -23,7 +26,7 @@ class adminController {
             res.render('admin/login', {
                 err : ["Sai mật khẩu!"],
                 user : user,
-                layout: 'admin'
+                layout: 'blank_page'
             });
             return;
         }
