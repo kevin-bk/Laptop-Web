@@ -40,10 +40,10 @@ class laptopController {
         })
     }
 
-    // [DELETE] /admin/laptop/:id
+    // [DELETE] /admin/laptop/delete/id
     delete(req, res, next) {
         laptop.delete(req.con, req.params.id, function(err){
-            res.redirect(req.header('Referer') || '/');
+            res.redirect('/admin/laptop')
         })
     }
 

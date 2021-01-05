@@ -15,7 +15,7 @@ router.get('/laptop/trash',laptopController.trash);
 router.get('/laptop/create',laptopController.create);
 router.get('/laptop/:id/edit',laptopController.edit);
 router.put('/laptop/:id',laptopController.update);
-router.delete('/laptop/:id',laptopController.delete);
+router.get('/laptop/delete/:id',laptopController.delete);
 router.patch('/laptop/:id/restore',laptopController.restore);
 router.delete('/laptop/:id/force',laptopController.destroy);
 router.post('/laptop/store',laptopController.store);

@@ -19,7 +19,7 @@ class orderController {
     // GET /order/delete/:id
     delete(req,res){
         order.destroy(req.con, req.params.id, function(){
-            res.redirect('/');
+            res.redirect('/admin/order');
         })
     }
 }
