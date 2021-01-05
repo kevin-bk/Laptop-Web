@@ -9,7 +9,7 @@ class laptopController {
                 laptop.price = Intl.NumberFormat().format(laptop.price);
                 return laptop;
             });
-            res.render('admin/laptop/list',{ laptops, layout: 'admin' })
+            res.render('admin/laptop/test',{ laptops, layout: 'admin' })
         })
     }
 
@@ -36,14 +36,14 @@ class laptopController {
     // [PUT] /admin/laptop/:id
     update(req, res,next) {
         laptop.update(req.con, req.body, req.params.id, function(err) {
-            res.redirect("/admin/laptop");
+            res.redirect(req.header('Referer') || '/');
         })
     }
 
     // [DELETE] /admin/laptop/:id
     delete(req, res, next) {
         laptop.delete(req.con, req.params.id, function(err){
-            res.redirect('/admin/laptop');
+            res.redirect(req.header('Referer') || '/');
         })
     }
 

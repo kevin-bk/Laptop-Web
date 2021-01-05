@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="/css/order.css">
+
+<div class="middleCart">
+    <div class="alertsuccess">
+        <i class="cartnew-success"></i>
+        <strong>Đặt hàng thành công</strong>
+    </div>
+
+    <div class="ordercontent">
+        <p>Cảm ơn <b>Anh/Chị {{name}}</b> đã cho chúng tôi cơ hội được phục vụ. Chúng tôi sẽ <b>gọi điện
+                hoặc gửi tin nhắn xác nhận giao hàng</b> cho anh/chị trong ngày hôm nay.</p>
+        <div class="info-order">
+            <h4>MÃ ĐƠN HÀNG:  &ensp; #{{id}}</h4>
+            <label><i></i><span><strong>Người nhận hàng:  </strong>{{data.name}}</span></label>
+            <label><i></i><span><strong>Số điện thoại:  </strong>{{data.phone}}</span></label>
+            <label><i></i><span><strong>Giao đến:  </strong>{{data.address}}</span></label>
+            <label><i></i><span><strong>Tổng tiền:  </strong><b>{{data.total_price}}đ</b></span></label>
+        </div>
+
+        <div class="cancel-order">
+            <a href="/order/delete/{{id}}" class="cancel-order__cancel-button">Hủy đơn hàng</a>
+        </div>
+
+        <div class="products"></div>
+        
+        <a href="/" class="buyanother"> Mua thêm sản phẩm khác </a>
+    </div>
+</div>
+
+<script>
+    fetch('/api/getCart')
+        .then(data => data.json())
+        .then(data => {
+            var htmls = data.map(laptop => {
+                return '<div class="product">'+
+`            <div class="group">`+
+`                <div class="product-img">`+
+`                    <img src="${laptop.image}" alt="photo">`+
+`                    <button id="delete" data-toggle="modal" data-target="#delete-laptop-modal" data-id="${laptop.id}"><i`+
+`                            class="far fa-times-circle"></i> Xóa </button>`+
+`                </div>`+
+`                <div class="product-name">`+
+`                    <a href="${laptop.slug}"><b>${laptop.name}</b></a>`+
+`                </div>`+
+`                <div class="product-price">`+
+`                    ${laptop.price}đ`+
+`                </div>`+
+`            </div>`+
+``+
+`            <div class="choosenumber">`+
+`                <div class="minus">`+
+`                    <i style="background-color: rgb(204, 204, 204);"></i>`+
+`                </div>`+
+`                <div class="number">Số lượng: ${laptop.value}</div>`+
+`                <div class="plus">`+
+`                    <i style="background-color: rgb(40, 138, 214);"></i>`+
+`                    <i style="background-color: rgb(40, 138, 214);"></i>`+
+`                </div>`+
+`            </div>`+
+`        </div>`;
+            });
+            $('.products').html(htmls.join(''));
+        })
+</script>

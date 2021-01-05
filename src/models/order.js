@@ -18,28 +18,27 @@ module.exports = {
         con.query(
             `INSERT INTO orders SET 
           order_id = '${id}', 
-          customer_name = '${data.customer_name}', 
-          gender = '${data.gender}', 
-          sdt = '${data.sdt}', 
+          customer_name = '${data.name}', 
+          sdt = '${data.phone}', 
           address = '${data.address}', 
           more_info = '${data.more_info}', 
           products = '${data.products}', 
           total_price = '${data.total_price}', 
-          status = '${data.status}', 
+          status = 'Đang chờ phê duyệt', 
           isDelete = 'false' `,
-            callback
+            callback(id)
         )
     },
 
     update: function (con, data, id, callback) {
         con.query(
             `UPDATE orders SET 
-            customer_name = '${data.customer_name}', 
-            gender = '${data.gender}', 
-            sdt = '${data.sdt}', 
+            customer_name = '${data.name}',
+            sdt = '${data.phone}', 
             address = '${data.address}', 
             more_info = '${data.more_info}', 
             products = '${data.products}', 
+            status = '${data.status}', 
             total_price = '${data.total_price}'
           WHERE order_id = '${id}'`,
             callback

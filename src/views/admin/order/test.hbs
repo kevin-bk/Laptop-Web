@@ -1,29 +1,29 @@
-
-<div class="mt-4 container">
-    <div class="">
-        <h3>Quản lý đơn hàng</h3>
-    </div>
-
-    <table class="table mt-4">
+<link rel="stylesheet" href="/css/order.css">
+<div class="card-body">
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Tên Khách Hàng</th>
-                <th scope="col">SĐT</th>
-                <th scope="col">Tổng Tiền</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col"></th>
+                <th>#</th>
+                <th>Khách hàng</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Thành tiền</th>
+                <th>Trạng thái đơn hàng</th>
             </tr>
         </thead>
         <tbody>
             {{#each orders}}
-            <tr>
-                <th scope="row">{{sum @index 1}}</th>
+            <tr data-widget="expandable-table" aria-expanded="false">
+                <td>{{sum @index 1}}</td>
                 <td>{{this.customer_name}}</td>
                 <td>{{this.sdt}}</td>
-                <td>{{this.total_price}}</td>
+                <td>{{this.address}}</td>
+                <td>{{this.total_price}}đ</td>
                 <td>{{this.status}}</td>
-                <td>
+            </tr>
+            <tr class="expandable-body">
+                <td colspan="6">
+                    
                     <a href="/admin/order/edit/{{this.order_id}}" class="btn btn-link">Sửa</a>
                     <a href="#" class="btn btn-link" data-toggle="modal" data-target="#delete-laptop-modal"
                         data-id="{{this.order_id}}">Xóa</a>
@@ -31,7 +31,7 @@
             </tr>
             {{else}}
             <tr>
-                <td colspan="5" class="text-center">
+                <td colspan="6" class="text-center">
                     Chưa có đơn hàng nào.
                 </td>
             </tr>
@@ -39,6 +39,7 @@
         </tbody>
     </table>
 </div>
+
 
 {{!-- Confirm Delete Laptop --}}
 <div class="modal" id="delete-laptop-modal" tabindex="-1">
@@ -60,6 +61,7 @@
         </div>
     </div>
 </div>
+
 
 {{!-- Delete hidden Form --}}
 <form method="POST" name="delete-laptop-form"></form>

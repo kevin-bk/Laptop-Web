@@ -65,7 +65,7 @@
                 <input class="form-control name-phone-form customer-name" type="text" placeholder="Họ Và Tên">
             </div>
             <div class="custom-phone">
-                <input class="form-control name-phone-form customer-phone" type="text" placeholder="Số điện thoại">
+                <input class="form-control name-phone-form customer-phone" type="number" placeholder="Số điện thoại">
             </div>
         </div>
 
@@ -189,6 +189,7 @@
 </script>
 
 <input type="text" class="order-hidden" style="display: none;" value="{{order}}">
+<div id="total_price" data-price="{{total_price}}" style="display: none;"></div>
 
 <script>
     var btn = $('#btn');
@@ -219,7 +220,7 @@
             return;
         }
         var address = custom_address.val() + ", " + xa.val() + ", " + huyen.val() + ", " + tinh.val();
-        order_form.action = "/cart/order?&name=" + customer_name.val() + "&phone=" + customer_phone.val() + "&address=" + address + "&more_info=" + more_info.val() + "&products=" + order_hidden.val();
+        order_form.action = "/order/create?&name=" + customer_name.val() + "&phone=" + customer_phone.val() + "&address=" + address + "&more_info=" + more_info.val() + "&products=" + order_hidden.val() + "&total_price=" + $('#total_price').data('price');
         order_form.submit();
     })
 </script>

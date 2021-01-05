@@ -1,4 +1,5 @@
 const laptop = require('../models/laptop.js');
+const session = require('../models/session.js');
 
 class apiController {
 
@@ -38,6 +39,35 @@ class apiController {
         }
         laptop.getByPrice(req.con, price, function(err, laptop){
             res.json(laptop);
+        })
+    }
+
+    // [GET] /getCart
+    getCart(req, res){
+        const sessionId = req.signedCookies.sessionId;
+        if (!sessionId) {res.redirect("/"); return;}
+        session.find(req.con, {sessionId}, function(err, sessions) {
+            if (err) console.log(err);
+            if (!sessions[0]){
+                res.redirect("/");
+                return;
+            }
+            let data = JSON.parse(sessions[0].value);
+            let products = [];
+            for (const dt in data) {
+                let product = {};
+                product.id = dt;
+                product.value = data[dt];
+                laptop.getById(req.con, product.id, function(err, laptops){
+                    product.name = laptops[0].laptop_name;
+                    product.image = laptops[0].img;
+                    product.price = Intl.NumberFormat().format(laptops[0].price);
+                    products.push(product);
+                });
+            }
+            setTimeout(() => {
+                res.json(products);
+            }, 100);
         })
     }
 }

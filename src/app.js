@@ -29,6 +29,11 @@ app.engine('.hbs', exphbs({
     extname: '.hbs',
     helpers: {
       sum: (a,b) => a + b,
+      section: function(name, options) { 
+        if (!this._sections) this._sections = {};
+          this._sections[name] = options.fn(this); 
+          return null;
+        },
   }
   }));
 app.set('view engine', '.hbs');

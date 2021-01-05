@@ -1,5 +1,6 @@
 const session = require('../models/session.js');
 const laptop = require('../models/laptop.js');
+const order = require('../models/order.js');
 
 class cartController {
 
@@ -93,9 +94,8 @@ class cartController {
         });
     }
 
+    // POST /cart/order
     order(req,res,next){
-        console.log(req.query);
-        res.json('susscess');
     }
 }
 
