@@ -11,19 +11,19 @@ module.exports = {
     },
 
     getById: function (con, id, callback) {
-        con.query(`SELECT * FROM laptops where id = '${id}'`, callback);
+        con.query(`SELECT * FROM laptops where isDelete = 0 and id = '${id}'`, callback);
     },
 
     getBySlug: function (con, slug, callback) {
-        con.query(`SELECT * FROM laptops where slug = '${slug}'`, callback);
+        con.query(`SELECT * FROM laptops where isDelete = 0 and slug = '${slug}'`, callback);
     },
 
     getByBrand: function (con, brand, callback) {
-        con.query(`SELECT * FROM laptops where brand = '${brand}'`, callback);
+        con.query(`SELECT * FROM laptops where isDelete = 0 and brand = '${brand}'`, callback);
     },
 
     getByPrice: function (con, price, callback) {
-        con.query(`SELECT * FROM laptops where price >= ${price.a} and price <= ${price.b}`, callback);
+        con.query(`SELECT * FROM laptops where isDelete = 0 and price >= ${price.a} and price <= ${price.b}`, callback);
     },
 
     create: function (con, data, callback) {
@@ -58,7 +58,7 @@ module.exports = {
           img = '${data.img}', 
           isDelete = 'false', 
           brand = '${data.brand}'`,
-            callback
+            callback(id)
         )
     },
 

@@ -3,7 +3,8 @@
 {{#each laptop}}
 <h1 style="display: block; width:100%;" id="laptop_name" class="ml-3 mt-4">Laptop {{this.laptop_name}}</h1>
 
-<img id="laptop_img" src="{{this.img}}" alt="" style="width: 240px; height: auto; margin-left: 360px; margin-top:30px; margin-bottom:0;">
+<img id="laptop_img" src="{{this.img}}" alt=""
+    style="width: 240px; height: auto; margin-left: 360px; margin-top:30px; margin-bottom:0;">
 <div class="clearfix"></div>
 
 <h2>Thông số kỹ thuật</h2>
@@ -93,6 +94,11 @@
             <div id="year">{{this.year}}</div>
         </li>
     </ul>
+</div>
+
+<div class="" style="text-align: center;">
+    <button onclick="window.location.href = '/admin/laptop/{{this.slug}}/edit' "
+        class="btn btn-success mt-4" style="margin-bottom: 100px; width: 150px; margin-right: 90px;">Sửa</button>
 </div>
 
 {{/each}}

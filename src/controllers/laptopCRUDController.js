@@ -31,7 +31,6 @@ class laptopController {
     // [GET] /admin/Laptop/detail/:id
     detail(req, res,next) {
         laptop.getById(req.con, req.params.id, function(err, laptop){
-            console.log(laptop)
             res.render('admin/laptop/detail',{ 
                 laptop,
                 layout: 'admin', 
@@ -47,8 +46,11 @@ class laptopController {
     // [POST] /admin/Laptop/store
     store(req, res, next) {
         if (!req.body.laptop_name) res.redirect("/admin/laptop/create");
-        else laptop.create(req.con, req.body, function(err) {
-            res.redirect("/admin/laptop")
+        var body = req.body;
+        body.price = body.price.replace(/\D/g,'');
+        laptop.create(req.con, body, function(id) {
+            // res.redirect("/admin/laptop/detail/" + id);
+            res.redirect('/admin/laptop/create')
           })
     }
 
