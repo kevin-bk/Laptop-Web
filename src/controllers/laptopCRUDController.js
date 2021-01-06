@@ -49,8 +49,8 @@ class laptopController {
         var body = req.body;
         body.price = body.price.replace(/\D/g,'');
         laptop.create(req.con, body, function(id) {
-            // res.redirect("/admin/laptop/detail/" + id);
-            res.redirect('/admin/laptop/create')
+            res.redirect("/admin/laptop/detail/" + id);
+            // res.redirect('/admin/laptop/create')
           })
     }
 

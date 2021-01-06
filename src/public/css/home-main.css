@@ -86,3 +86,20 @@
 .fa-shopping-cart{
     transform: translateY(calc(8%));
 }
+
+.search{
+    width: 300px;
+    position: relative;
+    top: 5px;
+    left: -260px;
+}
+.input-group{
+    width:100% !important;
+}
+.search .input{
+    height: 30px !important;
+    font-size: 15px;
+}
+.fa-search{
+    font-size: 20px;
+}

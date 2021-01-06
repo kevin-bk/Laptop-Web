@@ -75,6 +75,11 @@ class orderController {
         })
     }
 
+    doanhThu(req, res,next){
+        
+    }
+    
+
 }
 
 module.exports = new orderController;

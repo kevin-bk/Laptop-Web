@@ -349,3 +349,15 @@ p{
     left: 0;
     right: 0;
 }
+
+.nocart{
+    text-align: center;
+    margin-top: 150px;
+}
+
+.nocart button{
+    width: 38%;
+    height: 40px;
+    margin-top: 30px;
+    font-size: 20px;
+}

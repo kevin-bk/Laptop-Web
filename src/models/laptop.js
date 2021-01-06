@@ -26,6 +26,10 @@ module.exports = {
         con.query(`SELECT * FROM laptops where isDelete = 0 and price >= ${price.a} and price <= ${price.b}`, callback);
     },
 
+    search: function (con, key, callback) {
+        con.query(`SELECT * FROM laptops where isDelete = 0 and laptop_name like '%${key}%' `, callback);
+    },
+
     create: function (con, data, callback) {
         const url = urlSlug(data.laptop_name);
         const id = shortId.generate();

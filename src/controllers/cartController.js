@@ -41,6 +41,11 @@ class cartController {
         })
     }
 
+    // [GET] /cart/nocart
+    nocart(req, res) {
+        res.render('cart_no', { layout:'cart'});
+    }
+
     // [GET] /cart/add/:id
     add(req,res,next) {
         const productId = req.params.id;
