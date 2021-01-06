@@ -1,0 +1,85 @@
+<link rel="stylesheet" href="/css/order.css">
+
+<div class="">
+    {{#each orders}}
+    <div class="middleCart">
+        <div class="ordercontent mt-4">
+            <div class="info-order mt-4">
+                <h4>MÃ ĐƠN HÀNG: &ensp; #{{this.order_id}}</h4>
+                <label><i></i><span><strong>Người nhận hàng: </strong>{{this.customer_name}}</span></label>
+                <label><i></i><span><strong>Số điện thoại: </strong>{{this.sdt}}</span></label>
+                <label><i></i><span><strong>Giao đến: </strong>{{this.address}}</span></label>
+                <label><i></i><span><strong>Tổng tiền: </strong><b>{{this.total_price}}đ</b></span></label>
+                {{!-- <label><i></i><span><strong>Ngày đặt: </strong>{{this.createAt}}</span></label> --}}
+
+            </div>
+            <div class="products"></div>
+            <h5 style="margin: 20px auto; text-align: center;">Trạng thái: {{this.status}}</h5>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <button class="btn btn-danger xoa"data-toggle="modal" data-target="#{{this.order_id}}">Xóa đơn hàng</button>
+        <button onclick="window.location.href = '/admin/order/confirm/{{this.order_id}}?status=Đang giao hàng' " class="btn btn-success xac-nhan" style="margin-right:30px;">Xác nhận đơn</button>
+        <button onclick="window.location.href = '/admin/order/confirm/{{this.order_id}}?status=Đã giao hàng' " class="btn btn-primary xac-nhan">Đã giao hàng</button>
+    </div>
+    <div class="modal" id="{{this.order_id}}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xóa đơn hàng này?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn chắc chắn muốn xóa đơn hàng này?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                    <button onclick="window.location.href = '/admin/order/delete/{{this.order_id}}' "
+                        id="btn-delete-laptop" type="button" class="btn btn-primary">Xóa bỏ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+        <script>
+            window.location.href = '/admin/order';
+        </script>
+    {{/each}}
+</div>
+<script>
+    fetch('/api/getOrder/{{{id}}}')
+        .then(data => data.json())
+        .then(data => {
+            var htmls = data.map(laptop => {
+                return '<div class="product">' +
+                    `            <div class="group">` +
+                    `                <div class="product-img">` +
+                    `                    <img src="${laptop.img}" alt="photo">` +
+                    `                    <button id="delete" data-toggle="modal" data-target="#delete-laptop-modal" data-id="${laptop.id}"><i` +
+                    `                            class="far fa-times-circle"></i> Xóa </button>` +
+                    `                </div>` +
+                    `                <div class="product-name">` +
+                    `                    <a href="/admin/laptop/detail/${laptop.id}"><b>${laptop.laptop_name}</b></a>` +
+                    `                </div>` +
+                    `                <div class="product-price">` +
+                    `                    ${laptop.price}đ` +
+                    `                </div>` +
+                    `            </div>` +
+                    `` +
+                    `            <div class="choosenumber">` +
+                    `                <div class="minus">` +
+                    `                    <i style="background-color: rgb(204, 204, 204);"></i>` +
+                    `                </div>` +
+                    `                <div class="number">Số lượng: ${laptop.value}</div>` +
+                    `                <div class="plus">` +
+                    `                    <i style="background-color: rgb(40, 138, 214);"></i>` +
+                    `                    <i style="background-color: rgb(40, 138, 214);"></i>` +
+                    `                </div>` +
+                    `            </div>` +
+                    `        </div>`;
+            });
+            $('.products').html(htmls.join(''));
+        })
+</script>

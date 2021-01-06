@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/admin/datatables.min.css" />
-
+<h3 class="mt-4 ml-3">Danh sách Laptop {{brand}}</h3>
 <div class="card-body">
     <table id="example" class="table table-bordered table-hover">
         <thead>
@@ -18,7 +18,9 @@
                 <td>{{this.laptop_name}}</td>
                 <td>{{this.brand}}</td>
                 <td>{{this.price}}</td>
-                <td><a href="/admin/laptop/{{this.slug}}/edit" class="btn btn-link">Sửa</a>
+                <td>
+                    <a href="/admin/laptop/detail/{{this.id}}" class="btn btn-link">Xem</a>
+                    <a href="/admin/laptop/{{this.slug}}/edit" class="btn btn-link">Sửa</a>
                     <a href="#" class="btn btn-link" data-toggle="modal" data-target="#{{this.slug}}"
                         data-id="{{this.slug}}">Xóa</a>
                 </td>

@@ -1,0 +1,85 @@
+
+<div class="mt-4 container">
+    <div class="">
+        <h3>Quản lý đơn hàng</h3>
+    </div>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên Khách Hàng</th>
+                <th scope="col">SĐT</th>
+                <th scope="col">Tổng Tiền</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each orders}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.customer_name}}</td>
+                <td>{{this.sdt}}</td>
+                <td>{{this.total_price}}</td>
+                <td>{{this.status}}</td>
+                <td>
+                    <a href="/admin/order/edit/{{this.order_id}}" class="btn btn-link">Sửa</a>
+                    <a href="#" class="btn btn-link" data-toggle="modal" data-target="#delete-laptop-modal"
+                        data-id="{{this.order_id}}">Xóa</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">
+                    Chưa có đơn hàng nào.
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{!-- Confirm Delete Laptop --}}
+<div class="modal" id="delete-laptop-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa đơn hàng này?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa đơn hàng này?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                <button id="btn-delete-laptop" type="button" class="btn btn-primary">Xóa bỏ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Delete hidden Form --}}
+<form method="POST" name="delete-laptop-form"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var order_id;
+        var deleteForm = document.forms['delete-laptop-form'];
+        var btnDelete = document.getElementById('btn-delete-laptop');
+        $('#delete-laptop-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            order_id = id;
+        });
+
+        btnDelete.onclick = function () {
+            deleteForm.action = '/admin/order/' + order_id + '?_method=DELETE';
+            deleteForm.submit();
+        }
+    });
+
+
+</script>

@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="/css/detail.css" />
+
+{{#each laptop}}
+<h1 style="display: block; width:100%;" id="laptop_name" class="ml-3 mt-4">Laptop {{this.laptop_name}}</h1>
+
+<img id="laptop_img" src="{{this.img}}" alt="" style="width: 240px; height: auto; margin-left: 360px; margin-top:30px; margin-bottom:0;">
+<div class="clearfix"></div>
+
+<h2>Thông số kỹ thuật</h2>
+<div class="tableparameter">
+    <ul class="parameter">
+        <li>
+            <span>Hãng:</span>
+            <div id="brand">{{this.brand}}</div>
+        </li>
+        <li>
+            <span>CPU:</span>
+            <div id="cpu">{{this.cpu}}</div>
+        </li>
+        <li>
+            <span>Tốc độ CPU:</span>
+            <div id="cpu_speed">{{this.cpu_speed}}</div>
+        </li>
+        <li>
+            <span>RAM:</span>
+            <div id="ram">{{this.ram}}</div>
+        </li>
+        <li>
+            <span>Loại RAM:</span>
+            <div id="ram_type">{{this.ram_type}}</div>
+        </li>
+        <li>
+            <span>RAM tối đa:</span>
+            <div id="ram_max">{{this.ram_max}}</div>
+        </li>
+        <li>
+            <span>Tốc độ bus RAM:</span>
+            <div id="ram_speed">{{this.ram_speed}}</div>
+        </li>
+        <li>
+            <span>Ổ cứng:</span>
+            <div id="hard_drive">{{this.hard_drive}}</div>
+        </li>
+        <li>
+            <span>Kích thước màn hình:</span>
+            <div id="screen_size">{{this.screen_size}}</div>
+        </li>
+        <li>
+            <span>Cổng kết nối:</span>
+            <div id="connect_port">{{this.connect_port}}</div>
+        </li>
+    </ul>
+    {{!-- Cột 2 --}}
+    <ul class="parameter">
+        <li>
+            <span>Card màn hình:</span>
+            <div id="card">{{this.card}}</div>
+        </li>
+        <li>
+            <span>Công nghệ âm thanh:</span>
+            <div id="sound">{{this.sound}}</div>
+        </li>
+        <li>
+            <span>Kết nối không dây:</span>
+            <div id="wireless_connect">{{this.wireless_connect}}</div>
+        </li>
+        <li>
+            <span>Model sạc:</span>
+            <div id="model_charge">{{this.model_charge}}</div>
+        </li>
+        <li>
+            <span>Loại PIN:</span>
+            <div id="pin_type">{{this.pin_type}}</div>
+        </li>
+        <li>
+            <span>Hệ điều hành:</span>
+            <div id="os">{{this.os}}</div>
+        </li>
+        <li>
+            <span>Kích thước:</span>
+            <div id="size">{{this.size}}</div>
+        </li>
+        <li>
+            <span>Trọng lượng:</span>
+            <div id="weight">{{this.weight}}</div>
+        </li>
+        <li>
+            <span>Chất liệu:</span>
+            <div id="material">{{this.material}}</div>
+        </li>
+        <li>
+            <span>Thời điểm ra mắt:</span>
+            <div id="year">{{this.year}}</div>
+        </li>
+    </ul>
+</div>
+
+{{/each}}

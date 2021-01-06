@@ -1,33 +1,31 @@
-<link rel="stylesheet" type="text/css" href="/css/admin/datatables.min.css" />
+<div class="mt-4 container">
+    <div class="">
+        <h3>Thùng rác</h3>
+    </div>
 
-<div class="card-body">
-    <table id="example" class="table table-bordered table-hover">
+    <table class="table mt-4">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Tên Khách Hàng</th>
                 <th>Điện Thoại</th>
-                {{!-- <th>Địa Chỉ</th> --}}
                 <th>Tổng Tiền</th>
-                <th>Trạng thái đơn hàng</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             {{#each orders}}
             <tr>
-                <td>{{sum @index 1}}</td>
+                <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.customer_name}}</td>
                 <td>{{this.sdt}}</td>
-                {{!-- <td>{{this.address}}</td> --}}
                 <td>{{this.total_price}}</td>
-                <td>{{this.status}}</td>
                 <td>
-                    <a href="/admin/order/edit/{{this.order_id}}" class="btn btn-link">Xem</a>
-                    <a href="/admin/order/edit/{{this.order_id}}" class="btn btn-link">Sửa</a>
+                    <a href="/admin/order/{{this.order_id}}/restore" class="btn btn-link btn-restore" data-id="{{this.order_id}}">Khôi phục</a>
                     <a href="#" class="btn btn-link" data-toggle="modal" data-target="#{{this.order_id}}"
-                        data-id="{{this.order_id}}">Xóa</a>
+                        data-id="{{this.order_id}}">Xóa vĩnh viễn</a>
                 </td>
+
                 {{!-- Confirm Delete Laptop --}}
                 <div class="modal" id="{{this.order_id}}" tabindex="-1">
                     <div class="modal-dialog">
@@ -39,21 +37,21 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>Bạn chắc chắn muốn xóa đơn hàng này?</p>
+                                <p>Bạn chắc chắn muốn xóa vĩnh viễn đơn hàng này này?</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
-                                <button onclick="window.location.href = '/admin/order/delete/{{this.order_id}}' " id="btn-delete-laptop" type="button" class="btn btn-primary">Xóa bỏ</button>
+                                <button onclick="window.location.href = '/admin/order/{{this.order_id}}/force' " id="btn-delete-laptop" type="button" class="btn btn-primary">Xóa vĩnh viễn</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </tr>
             {{else}}
             <tr>
-                <td colspan="6" class="text-center">
-                    Chưa có đơn hàng nào.
+                <td colspan="5" class="text-center">
+                    Thùng rác trống.
+                    <a href="/admin/order">Danh sách đơn hàng</a>
                 </td>
             </tr>
             {{/each}}

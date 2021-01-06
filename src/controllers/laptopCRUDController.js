@@ -9,7 +9,33 @@ class laptopController {
                 laptop.price = Intl.NumberFormat().format(laptop.price);
                 return laptop;
             });
-            res.render('admin/laptop/test',{ laptops, layout: 'admin' })
+            res.render('admin/laptop/list',{ laptops, layout: 'admin' })
+        })
+    }
+
+    // [GET] /admin/Laptop/brand/:id
+    brand(req, res,next) {
+        laptop.getByBrand(req.con, req.params.id, function(err, laptops){
+            laptops = laptops.map(laptop => {
+                laptop.price = Intl.NumberFormat().format(laptop.price);
+                return laptop;
+            });
+            res.render('admin/laptop/list',{ 
+                laptops,
+                layout: 'admin',
+                brand: req.params.id, 
+            })
+        })
+    }
+
+    // [GET] /admin/Laptop/detail/:id
+    detail(req, res,next) {
+        laptop.getById(req.con, req.params.id, function(err, laptop){
+            console.log(laptop)
+            res.render('admin/laptop/detail',{ 
+                laptop,
+                layout: 'admin', 
+            })
         })
     }
 
@@ -36,7 +62,7 @@ class laptopController {
     // [PUT] /admin/laptop/:id
     update(req, res,next) {
         laptop.update(req.con, req.body, req.params.id, function(err) {
-            res.redirect(req.header('Referer') || '/');
+            res.redirect("/admin/laptop")
         })
     }
 

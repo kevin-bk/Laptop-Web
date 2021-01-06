@@ -13,6 +13,14 @@ module.exports = {
         con.query(`SELECT * FROM orders where order_id = '${id}'`, callback);
     },
 
+    getByStatus: function (con, status, callback) {
+        con.query(`SELECT * FROM orders where status = '${status}'`, callback);
+    },
+
+    getByIdNoDelete: function (con, id, callback) {
+        con.query(`SELECT * FROM orders where isDelete = false and order_id = '${id}'`, callback);
+    },
+
     create: function (con, data, callback) {
         const id = shortId.generate();
         con.query(
