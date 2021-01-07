@@ -76,7 +76,40 @@ class orderController {
     }
 
     doanhThu(req, res,next){
-        
+        order.getDone(req.con, function (err, orders){
+            var productList = {};
+            var des = [];
+            var total_price = 0;
+            for(var i in orders){
+                let data = JSON.parse(orders[i].products);
+                for (const dt in data) {
+                    if (productList[dt]){
+                        productList[dt] += data[dt];
+                    }
+                    else productList[dt] = data[dt];
+                }
+                setTimeout(function(){
+                    for (const dt in productList){
+                        laptop.getById(req.con, dt, function(err,laptops){
+                            const laptop = laptops[0];
+                            laptop.value = productList[dt];
+                            total_price += laptop.price * laptop.value;
+                            laptop.price = Intl.NumberFormat().format(laptop.price);
+                            laptop.total_price = Intl.NumberFormat().format(total_price);
+                            des.push(laptop);
+                        })
+                    }
+                },200);
+            }
+            setTimeout(function() {
+                total_price = Intl.NumberFormat().format(total_price);
+                res.render('admin/doanhThu', {
+                    layout: 'admin',
+                    des: des,
+                    total: total_price
+            })
+            }, 500);
+        })
     }
     
 

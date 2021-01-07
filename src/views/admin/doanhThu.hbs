@@ -1,0 +1,37 @@
+<link rel="stylesheet" type="text/css" href="/css/admin/datatables.min.css" />
+<h3 class="mt-4 ml-3">Danh sách Laptop {{brand}}</h3>
+<div class="card-body">
+    <table id="example" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tên Laptop</th>
+                <th>Giá</th>
+                <th>Đã bán</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each des}}
+            <tr>
+                <td>{{sum @index 1}}</td>
+                <td>{{this.laptop_name}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.value}}</td>
+
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="4" class="text-center">
+                    Chưa có sản phẩm nào.
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td  style="color: red;"  colspan="2">Tổng doanh thu</td>
+                <td style="color: red;" colspan="2">{{total}}đ</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

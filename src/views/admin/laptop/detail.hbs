@@ -97,8 +97,30 @@
 </div>
 
 <div class="" style="text-align: center;">
+    <button data-toggle="modal" data-target="#{{this.slug}}"
+        class="btn btn-danger mt-4" style="margin-bottom: 100px; width: 150px; margin-right: 90px;">Xóa</button>
     <button onclick="window.location.href = '/admin/laptop/{{this.slug}}/edit' "
         class="btn btn-success mt-4" style="margin-bottom: 100px; width: 150px; margin-right: 90px;">Sửa</button>
 </div>
+
+<div class="modal" id="{{this.slug}}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Xóa laptop này?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Bạn chắc chắn muốn xóa laptop này?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                                <button onclick="window.location.href = '/admin/laptop/delete/{{this.slug}}' " id="btn-delete-laptop" type="button" class="btn btn-primary">Xóa bỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 {{/each}}

@@ -21,6 +21,10 @@ module.exports = {
         con.query(`SELECT * FROM orders where isDelete = false and order_id = '${id}'`, callback);
     },
 
+    getDone: function (con, callback) {
+        con.query(`SELECT * FROM orders where isDelete = false and status = 'Đã giao hàng'`, callback);
+    },
+
     create: function (con, data, callback) {
         const id = shortId.generate();
         con.query(

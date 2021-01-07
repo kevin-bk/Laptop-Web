@@ -29,6 +29,7 @@ router.get('/order/:id/force',orderController.destroy);
 router.get('/order/detail/:id',orderController.detail);
 router.get('/order/confirm/:id',orderController.confirm);
 router.get('/order/status',orderController.status);
+router.get('/order/doanhthu',orderController.doanhThu);
 router.get('/order',orderController.index);
 
 router.get('/',adminController.index);

@@ -22,7 +22,7 @@ class adminController {
             });
             return;
         }
-        if (password == ""){
+        if (password != "12345"){
             res.render('admin/login', {
                 err : ["Sai mật khẩu!"],
                 user : user,
