@@ -42,6 +42,13 @@ class orderController {
 
     // POST /order/store
     store(req, res, next) {
+        var products = JSON.parse(req.query.products);
+        for (const lap in products) {
+            laptop.sub(req.con, lap, products[lap], function(){
+
+            })
+        }
+
         order.create(req.con, req.query, function (id) {
             res.render('order', { data: req.query, id: id, layout: 'cart' });
         })
@@ -49,6 +56,16 @@ class orderController {
 
     // GET /order/delete/:id
     delete(req, res) {
+        order.getById(req.con, req.params.id, function (err, orders){
+            var order = orders[0];
+            let data = JSON.parse(order.products);
+            for (const dt in data) {
+                laptop.add(req.con, data[dt], dt, function () {
+                    
+                })
+            }
+        })
+
         order.delete(req.con, req.params.id, function () {
             res.redirect(req.header('Referer') || '/');
         })
@@ -63,6 +80,16 @@ class orderController {
 
     // [PATCH] /admin/order/:id/restore
     restore(req, res, next) {
+        order.getById(req.con, req.params.id, function (err, orders){
+            var order = orders[0];
+            let data = JSON.parse(order.products);
+            for (const dt in data) {
+                laptop.sub(req.con, dt, data[dt], function () {
+                    
+                })
+            }
+        })
+
         order.restore(req.con, req.params.id, function (err) {
             res.redirect('/admin/order/trash');
         })
@@ -88,19 +115,19 @@ class orderController {
                     }
                     else productList[dt] = data[dt];
                 }
-                setTimeout(function(){
-                    for (const dt in productList){
-                        laptop.getById(req.con, dt, function(err,laptops){
-                            const laptop = laptops[0];
-                            laptop.value = productList[dt];
-                            total_price += laptop.price * laptop.value;
-                            laptop.price = Intl.NumberFormat().format(laptop.price);
-                            laptop.total_price = Intl.NumberFormat().format(total_price);
-                            des.push(laptop);
-                        })
-                    }
-                },200);
             }
+            setTimeout(function(){
+                for (const dt in productList){
+                    laptop.getById(req.con, dt, function(err,laptops){
+                        const laptop = laptops[0];
+                        laptop.value = productList[dt];
+                        total_price += laptop.price * laptop.value;
+                        laptop.price = Intl.NumberFormat().format(laptop.price);
+                        laptop.total_price = Intl.NumberFormat().format(total_price);
+                        des.push(laptop);
+                    })
+                }
+            },200);
             setTimeout(function() {
                 total_price = Intl.NumberFormat().format(total_price);
                 res.render('admin/doanhThu', {

@@ -144,7 +144,7 @@
 <script>
     fetch('/api/getLaptopBySlug/' + $('#data').data('slug'))
         .then(data => data.json())
-        .then( async (laptop) => {
+        .then(async (laptop) => {
             const id = laptop.id;
             const brand = laptop.brand;
             var lp = laptop;
@@ -156,13 +156,18 @@
             for (const property in laptop) {
                 $(`#${property}`).html(laptop[property]);
             }
+            if (!laptop.cnt) {
+                $('#mua-ngay').html('Sản phẩm tạm thời hết hàng');
+                $('#mua-ngay').css('height', '50px');
+                $('#mua-ngay').removeAttr("href");
+            }
             return brand;
         })
         .then(brand => {
             fetch('/api/getLaptopByBrand/' + brand)
                 .then(data => data.json())
                 .then(laptops => {
-                    renderData(laptops,'.row', 5);
+                    renderData(laptops, '.row', 5);
                 })
         })
 

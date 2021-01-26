@@ -96,6 +96,18 @@ class laptopController {
         })
     }
 
+    add(req, res, next) {
+        laptop.add(req.con, req.body.cnt, req.params.id, function(err){
+            res.redirect('/admin/laptop')
+        })
+    }
+
+    sub(req, res, next) {
+        laptop.sub(req.con, req.params.id, req.body.cnt,  function(err){
+            res.redirect('/admin/laptop')
+        })
+    }
+
 }
 
 module.exports = new laptopController;

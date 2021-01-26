@@ -1,17 +1,18 @@
 <link rel="stylesheet" href="/css/category.css">
 
 <div class="filter">
-    <div class="manu">
-        <a href="/laptop/brand/MacBook"><img src="/img/MacBook.png" alt=""></a>
+    <div class="manu" id="manu">
+        {{!-- <a href="/laptop/brand/MacBook"><img src="/img/MacBook.png" alt=""></a>
         <a href="/laptop/brand/Asus"><img src="/img/Asus.png" alt=""></a>
         <a href="/laptop/brand/HP"><img src="/img/HP.jpg" alt=""></a>
         <a href="/laptop/brand/Dell"><img src="/img/Dell.jpg" alt=""></a>
         <a href="/laptop/brand/Lenovo"><img src="/img/Lenovo.png" alt=""></a>
         <a href="/laptop/brand/Acer"><img src="/img/Acer.jpg" alt=""></a>
         <a href="/laptop/brand/MSI"><img src="/img/MSI.png" alt=""></a>
-        <a href="/laptop/brand/LG"><img src="/img/LG.jpg" alt=""></a>
+        <a href="/laptop/brand/LG"><img src="/img/LG.jpg" alt=""></a> --}}
+        <a>ahihi</a>
     </div>
-
+    
     <div class="fl">
         <label>Chọn mức giá: </label>
         <a href="/laptop/filter?a=1&b=10">Dưới 10 triệu</a>
@@ -47,3 +48,17 @@
         </a>
     </div>
 </div>
+
+<script>
+    fetch('/api/getBrand')
+        .then(response  => response.json())
+        .then(brands => {
+            var htmls = brands.map(function(brand){
+                return `<a href="/laptop/brand/${brand}">${brand}</a>`;
+            });
+        return htmls;
+        })
+        .then(htmls => {
+            $('#manu').html(htmls.join(''));
+        })
+</script>

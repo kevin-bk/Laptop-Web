@@ -7,7 +7,18 @@ class apiController {
     //  [GET] /getLaptopList
     getLaptopList(req, res) {
         laptop.get(req.con, function (err, laptops) {
-            res.json(laptops)
+            res.json(laptops);
+        })
+    }
+
+    //  [GET] /getBrand
+    getBrand(req, res) {
+        laptop.getBrand(req.con, function (err, brands) {
+            var data = [];
+            data = brands.map(function (brand) {
+                return brand['brand'];
+            })
+            res.json(data);
         })
     }
 

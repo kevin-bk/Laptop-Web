@@ -30,6 +30,10 @@ module.exports = {
         con.query(`SELECT * FROM laptops where isDelete = 0 and laptop_name like '%${key}%' `, callback);
     },
 
+    getBrand: function (con, callback) {
+        con.query(`SELECT DISTINCT brand FROM laptops where isDelete = 0 `, callback);
+    },
+
     create: function (con, data, callback) {
         const url = urlSlug(data.laptop_name);
         const id = shortId.generate();
@@ -100,12 +104,32 @@ module.exports = {
         )
     },
 
+    add: function (con, cnt, id, callback) {
+        // console.log(id);
+        con.query(
+            `UPDATE laptops SET 
+            cnt = cnt + ${cnt}
+            WHERE id = '${id}'`,
+            callback
+          )
+    },
+
+    sub: function (con, id, cnt, callback) {
+        // console.log(id);
+        con.query(
+            `UPDATE laptops SET 
+            cnt = cnt - ${cnt}
+            WHERE id = '${id}'`,
+            callback
+          )
+    },
+
     delete: function (con, id, callback) {
         // console.log(id);
         con.query(
             `UPDATE laptops SET 
             isDelete = 1
-            WHERE slug = '${id}'`,
+            WHERE id = '${id}'`,
             callback
           )
     },
@@ -114,12 +138,12 @@ module.exports = {
         con.query(
             `UPDATE laptops SET 
             isDelete = 0
-            WHERE slug = '${id}'`,
+            WHERE id = '${id}'`,
             callback
           )
     },
 
     destroy: function (con, id, callback) {
-        con.query(`DELETE FROM laptops WHERE slug = '${id}'`, callback)
+        con.query(`DELETE FROM laptops WHERE id = '${id}'`, callback)
     }
 }

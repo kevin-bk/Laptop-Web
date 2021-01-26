@@ -21,9 +21,9 @@
                 <td>{{this.brand}}</td>
                 <td>{{this.price}}</td>
                 <td>
-                    <a href="/admin/laptop/{{this.slug}}/restore" class="btn btn-link btn-restore" data-id="{{this.slug}}">Khôi phục</a>
+                    <a href="/admin/laptop/{{this.id}}/restore" class="btn btn-link btn-restore" data-id="{{this.id}}">Khôi phục</a>
                     <a href="#" class="btn btn-link" data-toggle="modal" data-target="#{{this.slug}}"
-                        data-id="{{this.slug}}">Xóa vĩnh viễn</a>
+                        data-id="{{this.id}}">Xóa vĩnh viễn</a>
                 </td>
 
                 {{!-- Confirm Delete Laptop --}}
@@ -41,7 +41,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
-                                <button onclick="window.location.href = '/admin/laptop/{{this.slug}}/force' " id="btn-delete-laptop" type="button" class="btn btn-primary">Xóa vĩnh viễn</button>
+                                <button onclick="window.location.href = '/admin/laptop/{{this.id}}/force' " id="btn-delete-laptop" type="button" class="btn btn-primary">Xóa vĩnh viễn</button>
                             </div>
                         </div>
                     </div>

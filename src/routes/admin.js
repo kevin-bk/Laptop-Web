@@ -21,6 +21,8 @@ router.get('/laptop/delete/:id',laptopController.delete);
 router.get('/laptop/:id/restore',laptopController.restore);
 router.get('/laptop/:id/force',laptopController.destroy);
 router.post('/laptop/store',laptopController.store);
+router.post('/laptop/add/:id',laptopController.add);
+router.post('/laptop/sub/:id',laptopController.sub);
 
 router.get('/order/delete/:id',orderController.delete);
 router.get('/order/trash',orderController.trash);

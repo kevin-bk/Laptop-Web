@@ -6,6 +6,7 @@ const route = require('./routes/index');
 const con = require("./db/db.js");
 const cookieParser = require('cookie-parser')
 const sessionMiddleware = require('./middlewares/session.middleware.js');
+var bodyParser = require('body-parser');
 
 const app = express()
 const port = 3000;
@@ -42,6 +43,9 @@ app.set('views', path.join(__dirname, 'views'));
 // static field
 app.use(express.static(path.join(__dirname, 'public')))
 route(app);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)

@@ -4,6 +4,7 @@ const router = express.Router();
 const apiController = require('../controllers/apiController');
 
 router.get('/getLaptopList',apiController.getLaptopList);
+router.get('/getBrand',apiController.getBrand);
 router.get('/getLaptopByPrice',apiController.getLaptopByPrice);
 router.get('/getCart',apiController.getCart);
 router.get('/getLaptopById/:id',apiController.getLaptopById);

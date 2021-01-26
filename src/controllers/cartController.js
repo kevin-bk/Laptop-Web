@@ -50,18 +50,29 @@ class cartController {
     add(req,res,next) {
         const productId = req.params.id;
         const sessionId = req.signedCookies.sessionId;
+        var value;
         if (!sessionId) {res.redirect("/"); return;}
-        session.find(req.con, {sessionId}, function(err, sessions) {
-            if (err) console.log(err);
-            let data = JSON.parse(sessions[0].value);
-            if (data[productId]) data[productId]++;
-            else data[productId] = 1;
-            let text = JSON.stringify(data);
-            session.update(req.con, text, sessionId, function(err){
+
+        laptop.getById(req.con, productId, function(err, laptops){
+            var laptop = laptops[0];
+            value = laptop.cnt;
+        })
+
+        setTimeout(function(){
+            session.find(req.con, {sessionId}, function(err, sessions) {
                 if (err) console.log(err);
-                res.redirect("/cart");
-            })
-        });
+                let data = JSON.parse(sessions[0].value);
+                if (data[productId]){
+                    if (data[productId] < value) data[productId]++;
+                }
+                else data[productId] = 1;
+                let text = JSON.stringify(data);
+                session.update(req.con, text, sessionId, function(err){
+                    if (err) console.log(err);
+                    res.redirect("/cart");
+                })
+            });
+        }, 200);
     }
 
     // [GET] /cart/sub/:id

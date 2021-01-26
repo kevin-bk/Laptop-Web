@@ -16,7 +16,7 @@ class HomeController {
     }
 
     search(req, res,next){
-        laptop.search(req.con, req.query.key, function(err, laptops){
+        laptop.search(req.con, req.query.key.replace(/\s/g, '%'), function(err, laptops){
             laptops = laptops.map(laptop => {
                 laptop.price = Intl.NumberFormat().format(laptop.price);
                 return laptop;

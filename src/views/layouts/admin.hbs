@@ -80,7 +80,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                <div class="">
+                                <div class="" id="manu">
                                     <li class="nav-item">
                                         <a href="/admin/laptop/brand/MacBook" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
@@ -237,6 +237,23 @@
             $('#example').DataTable({
             });
         });
+
+        fetch('/api/getBrand')
+            .then(response => response.json())
+            .then(brands => {
+                var htmls = brands.map(function (brand) {
+                    return '<li class="nav-item">' +
+                        `                                        <a href="/admin/laptop/brand/${brand}" class="nav-link">` +
+                        `                                            <i class="far fa-circle nav-icon"></i>` +
+                        `                                            <p>${brand}</p>` +
+                        `                                        </a>` +
+                        `                                    </li>`;
+                });
+                return htmls;
+            })
+            .then(htmls => {
+                $('#manu').html(htmls.join(''));
+            })
     </script>
 </body>
 
